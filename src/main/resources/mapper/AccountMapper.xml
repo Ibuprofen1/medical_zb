@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zbdx.medicalzb.mapper.AccountMapper">
+    <sql id="updateValue">
+        <trim prefixOverrides=",">
+            <if test="pwd !=null and pwd != ''">
+                ,pwd=#{pwd}
+            </if>
+            <if test="uname != null and uname != ''">
+                ,uname=#{uname}
+            </if>
+            <if test="phoneNumber !=null and phoneNumber != ''">
+                ,phonenumber=#{phoneNumber}
+            </if>
+            <if test="realname !=null and realname != ''">
+                ,realname=#{realname}
+            </if>
+            <if test="updatetime !=null">
+                ,updatetime=#{updatetime}
+            </if>
+            <if test="createtime !=null">
+                ,createtime=#{createtime}
+            </if>
+        </trim>
+    </sql>
+
+    <!--&lt;!&ndash;用户登录&ndash;&gt;-->
+    <select id="login" resultType="com.zbdx.medicalzb.model.AccountModel">
+        select * from account where uname=#{uname} or phonenumber=#{uname} and pwd=#{encrypt}
+    </select>
+    <select id="securityLogin" resultType="com.zbdx.medicalzb.model.AccountModel">
+        select * from account where uname=#{uname} or phonenumber=#{uname}
+    </select>
+    <!--用户登录security版-->
+    <!--    <select id="securityLogin" resultType="com.qst.medical.model.AccountModel">-->
+    <!--        select * from account where uname=#{uname} or phonenumber=#{uname}-->
+    <!--    </select>-->
+
+</mapper>
